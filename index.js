@@ -61,7 +61,7 @@ function validate(lat, lng, lngLength, precision) {
     throw new RangeError(['Wrong longitude value: ', precision].join());
   }
 
-  if (precision <= 0 || precision > LATITUDE_DEGREE_LENGTH || precision > lngLength) {
+  if (precision <= 0) {
     throw new RangeError(['Wrong precision value: ', precision].join());
   }
 }
@@ -87,8 +87,9 @@ function roundCoordinates(latitude, longitude, precision, useYards) {
 
   validate(latitude, longitude, lngLength, precision);
 
-  var latPrecision = precision / LATITUDE_DEGREE_LENGTH;
-  var lngPrecision = precision / lngLength;
+  var latPrecision =
+    precision > LATITUDE_DEGREE_LENGTH ? 1 : precision / LATITUDE_DEGREE_LENGTH;
+  var lngPrecision = precision > lngLength ? 1 : precision / lngLength;
 
   var latRate = Math.pow(10, getPow(latPrecision));
   var lngRate = Math.pow(10, getPow(lngPrecision));

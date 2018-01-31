@@ -34,8 +34,14 @@ describe('Validation', function () {
       round(0, 0, 0);
     }, RangeError);
     assert.throws(function () {
-      round(0, 0, 500000);
+      round(0, 0, -100);
     }, RangeError);
+  });
+
+  it('should accept too large precision', function () {
+    var value = round(TEST_VALUE, TEST_VALUE, Number.POSITIVE_INFINITY);
+    assert.equal(value.latitude, 10);
+    assert.equal(value.longitude, 10);
   });
 });
 
@@ -71,9 +77,21 @@ describe('Calculations in meters', function () {
   });
 
   it('should round with different precision', function () {
-    var value = round(80.123456789123, TEST_VALUE, 1000);
-    assert.equal(value.latitude, 80.123);
-    assert.equal(value.longitude, 10.12);
+    var value = round(89.123456789123, TEST_VALUE, 1000);
+    assert.equal(value.latitude, 89.123);
+    assert.equal(value.longitude, 10.1);
+  });
+
+  it('should work on south pole', function () {
+    var value = round(90, TEST_VALUE, 1000);
+    assert.equal(value.latitude, 90);
+    assert.equal(value.longitude, 10);
+  });
+
+  it('should work on north pole', function () {
+    var value = round(-90, TEST_VALUE, 1000);
+    assert.equal(value.latitude, -90);
+    assert.equal(value.longitude, 10);
   });
 
   it('should not modify coordinates', function () {
