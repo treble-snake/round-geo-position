@@ -9,6 +9,7 @@
 
 var LATITUDE_DEGREE_LENGTH = 111133; // meters, 20,003.93 / 180
 var EQUATOR_LONGITUDE_DEGREE_LENGTH = 111319; // meters 40075 / 360
+var YARDS_IN_METER = 0.9144;
 
 /**
  * Longitude length varies depending on current latitude
@@ -65,19 +66,29 @@ function validate(lat, lng, lngLength, precision) {
   }
 }
 
+function yardsToMeters(yards) {
+  return yards *  YARDS_IN_METER;
+}
+
 /**
  * @param {number} latitude
  * @param {number} longitude
- * @param {number} precisionMeters
+ * @param {number} precision - precision in meters by default,
+ * in yards if useYards is set to true
+ * @param {boolean} [useYards=false] - if true, precision is considered given in yards
  * @return {{latitude: number, longitude: number}}
  * @throws {RangeError}
  */
-function roundCoordinates(latitude, longitude, precisionMeters) {
+function roundCoordinates(latitude, longitude, precision, useYards) {
   var lngLength = getLongitudeDegreeLength(latitude);
-  validate(latitude, longitude, lngLength, precisionMeters);
+  if(useYards) {
+    precision = yardsToMeters(precision);
+  }
 
-  var latPrecision = precisionMeters / LATITUDE_DEGREE_LENGTH;
-  var lngPrecision = precisionMeters / lngLength;
+  validate(latitude, longitude, lngLength, precision);
+
+  var latPrecision = precision / LATITUDE_DEGREE_LENGTH;
+  var lngPrecision = precision / lngLength;
 
   var latRate = Math.pow(10, getPow(latPrecision));
   var lngRate = Math.pow(10, getPow(lngPrecision));

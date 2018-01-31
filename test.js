@@ -39,7 +39,7 @@ describe('Validation', function () {
   });
 });
 
-describe('Calculations', function () {
+describe('Calculations in meters', function () {
   it('should round to 1cm', function () {
     var value = round(TEST_VALUE, TEST_VALUE, 0.01);
     assert.equal(value.latitude, 10.12345679);
@@ -78,6 +78,26 @@ describe('Calculations', function () {
 
   it('should not modify coordinates', function () {
     var value = round(12.12, 15.15, 1);
+    assert.equal(value.latitude, 12.12);
+    assert.equal(value.longitude, 15.15);
+  });
+});
+
+describe('Calculations in yards', function () {
+  it('should round to 1 yd', function () {
+    var value = round(TEST_VALUE, TEST_VALUE, 1, true);
+    assert.equal(value.latitude, 10.123457);
+    assert.equal(value.longitude, 10.123457);
+  });
+
+  it('should round to 1000 yd', function () {
+    var value = round(TEST_VALUE, TEST_VALUE, 1000, true);
+    assert.equal(value.latitude, 10.123);
+    assert.equal(value.longitude, 10.123);
+  });
+
+  it('should not modify coordinates', function () {
+    var value = round(12.12, 15.15, 1, true);
     assert.equal(value.latitude, 12.12);
     assert.equal(value.longitude, 15.15);
   });
