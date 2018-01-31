@@ -1,0 +1,35 @@
+{
+  "name": "round-geo-position",
+  "version": "0.1.0",
+  "description": "Small library for rounding geographical coordinates up to given precision",
+  "keywords": [
+    "round",
+    "coordinates",
+    "geo",
+    "position",
+    "geographical"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Treble Snake (https://github.com/treble-snake)",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/treble-snake/round-geo-position.git"
+  },
+  "bugs": {
+    "url": "https://github.com/treble-snake/round-geo-position/issues"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "mocha": "^5.0.0"
+  }
+}
