@@ -24,3 +24,4 @@ var roundedPosition = round(10.1234567, 20.1234567, 1000);
 * **longitude**, number - \[-180; 180\]
 * **precision**, number > 0 - precision value in meters (by default) or yards
 * **useYards**, boolean - if true, precision is considered given in yards
+test
